@@ -39,7 +39,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signUp = async (email: string, password: string) => {
-    await createUserWithEmailAndPassword(auth, email, password);
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error(error);
+      throw error; // <-- re-throw so the caller's catch block can handle it
+    }
   };
 
   const logIn = async (email: string, password: string) => {

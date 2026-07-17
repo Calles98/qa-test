@@ -31,17 +31,21 @@ function SignUp() {
       setLoading(false);
     }
   };
+
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-100 font-sans dark:bg-black">
       <div className="flex flex-col bg-white w-full md:w-1/2 rounded-md p-20">
         <h1 className="text-2xl font-bold mb-5">SIGN UP</h1>
+        {error && <p className="text-red-500 font-bold">{error}</p>}
         <form className="w-full md:w-1/4" onSubmit={handleSubmit}>
           <h1>Email: </h1>
           <input
             className="bg-zinc-100 p-2 rounded-md w-full"
+            data-testid="email-input"
             type="email"
             value={email}
             placeholder="example@email.com"
+            required
             onChange={(e) => setEmail(e.target.value)}
           />
 
@@ -50,9 +54,11 @@ function SignUp() {
             <input
               className="bg-zinc-100 p-2 rounded-md w-full"
               onKeyUp={handleKeyPress}
+              data-testid="password-input"
               type="password"
               value={password}
               placeholder="Password"
+              required
               onChange={(e) => setPassword(e.target.value)}
             />
             {capsLockOn && (
@@ -65,7 +71,9 @@ function SignUp() {
           </div>
           <button
             type="submit"
-            className="p-2 rounded-md bg-blue-500 text-white w-full mt-3"
+            name="signup-button"
+            data-testid="signup-button"
+            className="p-2 rounded-md bg-blue-500 text-white w-full mt-3 hover:cursor-pointer"
           >
             Sign Up
           </button>

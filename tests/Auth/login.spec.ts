@@ -1,7 +1,7 @@
 import test, { expect } from "@playwright/test";
 
-test.describe("Log In", () => {
-  test("User logs in", async ({ page }) => {
+test.describe("Log In ", () => {
+  test("User logs in with valid credentials", async ({ page }) => {
     const email = "test@mail.com";
     const password = "123456";
 
@@ -25,7 +25,7 @@ test.describe("Log In", () => {
     );
   });
 
-  test("Email not found", async ({ page }) => {
+  test("Rejects an unknown email", async ({ page }) => {
     const email = "fakemail@mail.com";
     const password = "123456";
     await page.goto("/login");
@@ -38,7 +38,7 @@ test.describe("Log In", () => {
     await expect(page.getByText("Incorrect email or password.")).toBeVisible();
   });
 
-  test("Wrong password", async ({ page }) => {
+  test("Rejects wrong passwords", async ({ page }) => {
     const email = "test@mail.com";
     const password = "wrongPassword";
 

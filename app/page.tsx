@@ -80,8 +80,6 @@ export default function Home() {
     }
   };
 
-  console.log(todos);
-
   return (
     <div className="flex flex-col min-h-screen">
       <Header />

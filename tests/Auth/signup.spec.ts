@@ -1,14 +1,14 @@
 import test, { expect } from "@playwright/test";
+import { SignUpPage } from "../pages/SignUpPage";
 
 test.describe("Sign Up", () => {
   test("creates a new account", async ({ page }) => {
     const email = `user-${Date.now()}@example.com`;
+    const password = "Password123!";
 
-    await page.goto("/signup");
-
-    await page.getByTestId("email-input").fill(email);
-    await page.getByTestId("password-input").fill("Password123!");
-    await page.getByTestId("signup-button").click();
+    const signup = new SignUpPage(page);
+    await signup.goto();
+    await signup.signup(email, password);
 
     await expect(page).toHaveURL("/login");
   });
@@ -29,20 +29,12 @@ test.describe("Sign Up", () => {
     const password = "Password123!";
 
     // First signup
-    await page.goto("/signup");
-
-    await page.getByTestId("email-input").fill(email);
-    await page.getByTestId("password-input").fill(password);
-
-    await page.getByTestId("signup-button").click();
-
+    const signup = new SignUpPage(page);
+    await signup.goto();
+    await signup.signup(email, password);
     // Return to signup
-    await page.goto("/signup");
-
-    await page.getByTestId("email-input").fill(email);
-    await page.getByTestId("password-input").fill(password);
-
-    await page.getByTestId("signup-button").click();
+    await signup.goto();
+    await signup.signup(email, password);
 
     await expect(
       page.getByText("That email is already registered."),
@@ -54,12 +46,9 @@ test.describe("Sign Up", () => {
     const password = "123";
 
     // First signup
-    await page.goto("/signup");
-
-    await page.getByTestId("email-input").fill(email);
-    await page.getByTestId("password-input").fill(password);
-
-    await page.getByTestId("signup-button").click();
+    const signup = new SignUpPage(page);
+    await signup.goto();
+    await signup.signup(email, password);
 
     await expect(
       page.getByText("Password should be at least 6 characters."),

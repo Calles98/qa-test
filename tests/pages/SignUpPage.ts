@@ -4,7 +4,7 @@ export class SignUpPage {
   constructor(private page: Page) {}
 
   async goto() {
-    await this.page.goto("/signin");
+    await this.page.goto("/signup");
   }
 
   async signup(email: string, password: string) {
